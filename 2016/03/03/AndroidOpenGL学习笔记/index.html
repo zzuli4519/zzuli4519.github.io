@@ -6,19 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>AndroidOpenGL学习笔记 | Ming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：1&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
-如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的Androi">
+  <meta name="description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  
+&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
+
+如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的And">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AndroidOpenGL学习笔记">
 <meta property="og:url" content="http://yoursite.com/2016/03/03/AndroidOpenGL学习笔记/index.html">
 <meta property="og:site_name" content="Ming">
-<meta property="og:description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：1&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
-如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的Androi">
-<meta property="og:updated_time" content="2016-03-03T07:06:22.847Z">
+<meta property="og:description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  
+&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
+
+如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的And">
+<meta property="og:updated_time" content="2016-04-05T05:26:56.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidOpenGL学习笔记">
-<meta name="twitter:description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：1&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
-如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的Androi">
+<meta name="twitter:description" content="使用OpenGl流程首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  
+&amp;lt;uses-feature android:glEsVersion=&quot;0x00020000&quot; android:required=&quot;true&quot; /&amp;gt;
+
+如果程序中还使用了Texture compression,同样的必须要声明所使用的Text Compression版本。确保能安装在正确的And">
   
     <link rel="alternative" href="/atom.xml" title="Ming" type="application/atom+xml">
   
@@ -76,7 +82,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -113,7 +119,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
+						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
 					</div>
 				</section>
 				
@@ -216,14 +222,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="使用OpenGl流程"><a href="#使用OpenGl流程" class="headerlink" title="使用OpenGl流程"></a>使用OpenGl流程</h3><p>首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-feature android:glEsVersion=<span class="string">"0x00020000"</span> android:required=<span class="string">"true"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果程序中还使用了<code>Texture compression</code>,同样的必须要声明所使用的<code>Text Compression</code>版本。确保能安装在正确的Android手机版本上<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_ETC1_RGB8_texture"</span> /&gt;</span><br><span class="line">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_paletted_texture"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="使用OpenGl流程"><a href="#使用OpenGl流程" class="headerlink" title="使用OpenGl流程"></a>使用OpenGl流程</h3><p>首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  </p>
+<pre><code class="java">&lt;uses-feature android:glEsVersion=<span class="string">"0x00020000"</span> android:required=<span class="string">"true"</span> /&gt;
+</code></pre>
+<p>如果程序中还使用了<code>Texture compression</code>,同样的必须要声明所使用的<code>Text Compression</code>版本。确保能安装在正确的Android手机版本上  </p>
+<pre><code class="java">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_ETC1_RGB8_texture"</span> /&gt;
+&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_paletted_texture"</span> /&gt;
+</code></pre>
 <p>若程序中使用了OpenGl，必须在<code>GLSurfaceView</code>的基础上才能使用，下面的代码示例了如何在<code>Activity</code>中使用<code>OpenGl</code>  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OpenGLES20Activity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> GLSurfaceView mGLView;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Create a GLSurfaceView instance and set it</span></span><br><span class="line">       <span class="comment">// as the ContentView for this Activity.</span></span><br><span class="line">       mGLView = <span class="keyword">new</span> MyGLSurfaceView(<span class="keyword">this</span>);</span><br><span class="line">       setContentView(mGLView);</span><br><span class="line">   	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OpenGLES20Activity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>{
+
+    <span class="keyword">private</span> GLSurfaceView mGLView;
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
+        <span class="keyword">super</span>.onCreate(savedInstanceState);
+
+        <span class="comment">// Create a GLSurfaceView instance and set it</span>
+        <span class="comment">// as the ContentView for this Activity.</span>
+        mGLView = <span class="keyword">new</span> MyGLSurfaceView(<span class="keyword">this</span>);
+        setContentView(mGLView);
+        }
+    }
+</code></pre>
 <p>创建一个<code>GLSurfaceView</code> 对象  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">MyGLSurfaceView</span> <span class="keyword">extends</span> <span class="title">GLSurfaceView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MyGLRenderer mRenderer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyGLSurfaceView</span><span class="params">(Context context)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create an OpenGL ES 2.0 context</span></span><br><span class="line">        setEGLContextClientVersion(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        mRenderer = <span class="keyword">new</span> MyGLRenderer();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set the Renderer for drawing on the GLSurfaceView</span></span><br><span class="line">        setRenderer(mRenderer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="class"><span class="keyword">class</span> <span class="title">MyGLSurfaceView</span> <span class="keyword">extends</span> <span class="title">GLSurfaceView</span> </span>{
+
+    <span class="keyword">private</span> <span class="keyword">final</span> MyGLRenderer mRenderer;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">MyGLSurfaceView</span><span class="params">(Context context)</span></span>{
+        <span class="keyword">super</span>(context);
+
+        <span class="comment">// Create an OpenGL ES 2.0 context</span>
+        setEGLContextClientVersion(<span class="number">2</span>);
+
+        mRenderer = <span class="keyword">new</span> MyGLRenderer();
+
+        <span class="comment">// Set the Renderer for drawing on the GLSurfaceView</span>
+        setRenderer(mRenderer);
+    }
+}
+</code></pre>
 <p>此外还要设置渲染进程更新的机制  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Render the view only when there is a change in the drawing data</span></span><br><span class="line">setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="comment">// Render the view only when there is a change in the drawing data</span>
+setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+</code></pre>
 <p>创建一个<code>Renderer</code>类  </p>
 <p>实现了<code>GlSurfaceView.Renderer</code>接口，控制了如何绘制SurfacevView，其中必须实现三个方法  </p>
 <ul>
@@ -232,7 +275,24 @@
 <li><code>onSurfaceChanged()</code> - Called if the geometry of the view changes, for example when the device’s screen orientation changes.  </li>
 </ul>
 <p>下面为一个基本的<code>Renderer</code>代码示例  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGLRenderer</span> <span class="keyword">implements</span> <span class="title">GLSurfaceView</span>.<span class="title">Renderer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceCreated</span><span class="params">(GL10 unused, EGLConfig config)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Set the background frame color</span></span><br><span class="line">        GLES20.glClearColor(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDrawFrame</span><span class="params">(GL10 unused)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Redraw background color</span></span><br><span class="line">        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceChanged</span><span class="params">(GL10 unused, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        GLES20.glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGLRenderer</span> <span class="keyword">implements</span> <span class="title">GLSurfaceView</span>.<span class="title">Renderer</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceCreated</span><span class="params">(GL10 unused, EGLConfig config)</span> </span>{
+        <span class="comment">// Set the background frame color</span>
+        GLES20.glClearColor(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDrawFrame</span><span class="params">(GL10 unused)</span> </span>{
+        <span class="comment">// Redraw background color</span>
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceChanged</span><span class="params">(GL10 unused, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>{
+        GLES20.glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height);
+    }
+}
+</code></pre>
+
       
     </div>
     

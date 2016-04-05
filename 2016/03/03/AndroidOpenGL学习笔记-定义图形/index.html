@@ -7,18 +7,24 @@
   <title>AndroidOpenGL学习笔记(定义图形) | Ming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Defining ShapesOpenGL-ES允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在AndroidOpenGl中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到ByteBuffer中，这些将在OpenGLEs绘制的过程中用到。  
-1234567891011121314151617181920212223242526272829303132">
+public class Triangle {
+
+    private FloatBuffer vertex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AndroidOpenGL学习笔记(定义图形)">
 <meta property="og:url" content="http://yoursite.com/2016/03/03/AndroidOpenGL学习笔记-定义图形/index.html">
 <meta property="og:site_name" content="Ming">
 <meta property="og:description" content="Defining ShapesOpenGL-ES允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在AndroidOpenGl中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到ByteBuffer中，这些将在OpenGLEs绘制的过程中用到。  
-1234567891011121314151617181920212223242526272829303132">
-<meta property="og:updated_time" content="2016-03-03T07:34:30.613Z">
+public class Triangle {
+
+    private FloatBuffer vertex">
+<meta property="og:updated_time" content="2016-04-05T05:27:16.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AndroidOpenGL学习笔记(定义图形)">
 <meta name="twitter:description" content="Defining ShapesOpenGL-ES允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在AndroidOpenGl中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到ByteBuffer中，这些将在OpenGLEs绘制的过程中用到。  
-1234567891011121314151617181920212223242526272829303132">
+public class Triangle {
+
+    private FloatBuffer vertex">
   
     <link rel="alternative" href="/atom.xml" title="Ming" type="application/atom+xml">
   
@@ -76,7 +82,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -113,7 +119,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
+						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
 					</div>
 				</section>
 				
@@ -217,7 +223,76 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Defining-Shapes"><a href="#Defining-Shapes" class="headerlink" title="Defining Shapes"></a>Defining Shapes</h3><p><code>OpenGL-ES</code>允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在<code>AndroidOpenGl</code>中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到<code>ByteBuffer</code>中，这些将在<code>OpenGLEs</code>绘制的过程中用到。  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FloatBuffer vertexBuffer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// number of coordinates per vertex in this array</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> triangleCoords[] = &#123;   <span class="comment">// in counterclockwise order:</span></span><br><span class="line">             <span class="number">0.0f</span>,  <span class="number">0.622008459f</span>, <span class="number">0.0f</span>, <span class="comment">// top</span></span><br><span class="line">            -<span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>, <span class="comment">// bottom left</span></span><br><span class="line">             <span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>  <span class="comment">// bottom right</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set color with red, green, blue and alpha (opacity) values</span></span><br><span class="line">    <span class="keyword">float</span> color[] = &#123; <span class="number">0.63671875f</span>, <span class="number">0.76953125f</span>, <span class="number">0.22265625f</span>, <span class="number">1.0f</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Triangle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// initialize vertex byte buffer for shape coordinates</span></span><br><span class="line">        ByteBuffer bb = ByteBuffer.allocateDirect(</span><br><span class="line">                <span class="comment">// (number of coordinate values * 4 bytes per float)</span></span><br><span class="line">                triangleCoords.length * <span class="number">4</span>);</span><br><span class="line">        <span class="comment">// use the device hardware's native byte order</span></span><br><span class="line">        bb.order(ByteOrder.nativeOrder());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// create a floating point buffer from the ByteBuffer</span></span><br><span class="line">        vertexBuffer = bb.asFloatBuffer();</span><br><span class="line">        <span class="comment">// add the coordinates to the FloatBuffer</span></span><br><span class="line">        vertexBuffer.put(triangleCoords);</span><br><span class="line">        <span class="comment">// set the buffer to read the first coordinate</span></span><br><span class="line">        vertexBuffer.position(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">在`OpenGL`绘制的坐标系中，用`[<span class="number">0.0</span>.0](x,y,z)`来制定容器绘制帧布局的中心位置，`[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>]`代表帧布局最右边上角位置，`[-<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>]`代表了帧布局左下角容器位置。详细说明可以参见[OpenGl说明] [OpenGl]  </span><br><span class="line"></span><br><span class="line">定义一个复杂了图形，同样也是需要定义图形各个定点的坐标，并且需要提供绘制定点的顺序，如绘制一个矩形，最简单的绘制方式是利用以上的三角形代码来进行绘制，如以下的代码所示：  </span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FloatBuffer vertexBuffer;</span><br><span class="line">    <span class="keyword">private</span> ShortBuffer drawListBuffer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// number of coordinates per vertex in this array</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> squareCoords[] = &#123;</span><br><span class="line">            -<span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// top left</span></span><br><span class="line">            -<span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom left</span></span><br><span class="line">             <span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom right</span></span><br><span class="line">             <span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span> &#125;; <span class="comment">// top right</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">short</span> drawOrder[] = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span> &#125;; <span class="comment">// order to draw vertices</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Square</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// initialize vertex byte buffer for shape coordinates</span></span><br><span class="line">        ByteBuffer bb = ByteBuffer.allocateDirect(</span><br><span class="line">        <span class="comment">// (# of coordinate values * 4 bytes per float)</span></span><br><span class="line">                squareCoords.length * <span class="number">4</span>);</span><br><span class="line">        bb.order(ByteOrder.nativeOrder());</span><br><span class="line">        vertexBuffer = bb.asFloatBuffer();</span><br><span class="line">        vertexBuffer.put(squareCoords);</span><br><span class="line">        vertexBuffer.position(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// initialize byte buffer for the draw list</span></span><br><span class="line">        ByteBuffer dlb = ByteBuffer.allocateDirect(</span><br><span class="line">        <span class="comment">// (# of coordinate values * 2 bytes per short)</span></span><br><span class="line">                drawOrder.length * <span class="number">2</span>);</span><br><span class="line">        dlb.order(ByteOrder.nativeOrder());</span><br><span class="line">        drawListBuffer = dlb.asShortBuffer();</span><br><span class="line">        drawListBuffer.put(drawOrder);</span><br><span class="line">        drawListBuffer.position(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> </span>{
+
+    <span class="keyword">private</span> FloatBuffer vertexBuffer;
+
+    <span class="comment">// number of coordinates per vertex in this array</span>
+    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;
+    <span class="keyword">static</span> <span class="keyword">float</span> triangleCoords[] = {   <span class="comment">// in counterclockwise order:</span>
+             <span class="number">0.0f</span>,  <span class="number">0.622008459f</span>, <span class="number">0.0f</span>, <span class="comment">// top</span>
+            -<span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>, <span class="comment">// bottom left</span>
+             <span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>  <span class="comment">// bottom right</span>
+    };
+
+    <span class="comment">// Set color with red, green, blue and alpha (opacity) values</span>
+    <span class="keyword">float</span> color[] = { <span class="number">0.63671875f</span>, <span class="number">0.76953125f</span>, <span class="number">0.22265625f</span>, <span class="number">1.0f</span> };
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Triangle</span><span class="params">()</span> </span>{
+        <span class="comment">// initialize vertex byte buffer for shape coordinates</span>
+        ByteBuffer bb = ByteBuffer.allocateDirect(
+                <span class="comment">// (number of coordinate values * 4 bytes per float)</span>
+                triangleCoords.length * <span class="number">4</span>);
+        <span class="comment">// use the device hardware's native byte order</span>
+        bb.order(ByteOrder.nativeOrder());
+
+        <span class="comment">// create a floating point buffer from the ByteBuffer</span>
+        vertexBuffer = bb.asFloatBuffer();
+        <span class="comment">// add the coordinates to the FloatBuffer</span>
+        vertexBuffer.put(triangleCoords);
+        <span class="comment">// set the buffer to read the first coordinate</span>
+        vertexBuffer.position(<span class="number">0</span>);
+    }
+}
+</code></pre>
+<p>在<code>OpenGL</code>绘制的坐标系中，用<code>[0.0.0](x,y,z)</code>来制定容器绘制帧布局的中心位置，<code>[1,1,0]</code>代表帧布局最右边上角位置，<code>[-1,-1,0]</code>代表了帧布局左下角容器位置。详细说明可以参见<a href="(&quot;http://developer.android.com/guide/topics/graphics/opengl.html#faces-winding&quot;)">OpenGl说明</a>  </p>
+<p>定义一个复杂了图形，同样也是需要定义图形各个定点的坐标，并且需要提供绘制定点的顺序，如绘制一个矩形，最简单的绘制方式是利用以上的三角形代码来进行绘制，如以下的代码所示：  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> </span>{
+
+    <span class="keyword">private</span> FloatBuffer vertexBuffer;
+    <span class="keyword">private</span> ShortBuffer drawListBuffer;
+
+    <span class="comment">// number of coordinates per vertex in this array</span>
+    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;
+    <span class="keyword">static</span> <span class="keyword">float</span> squareCoords[] = {
+            -<span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// top left</span>
+            -<span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom left</span>
+             <span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom right</span>
+             <span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span> }; <span class="comment">// top right</span>
+
+    <span class="keyword">private</span> <span class="keyword">short</span> drawOrder[] = { <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span> }; <span class="comment">// order to draw vertices</span>
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Square</span><span class="params">()</span> </span>{
+        <span class="comment">// initialize vertex byte buffer for shape coordinates</span>
+        ByteBuffer bb = ByteBuffer.allocateDirect(
+        <span class="comment">// (# of coordinate values * 4 bytes per float)</span>
+                squareCoords.length * <span class="number">4</span>);
+        bb.order(ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(squareCoords);
+        vertexBuffer.position(<span class="number">0</span>);
+
+        <span class="comment">// initialize byte buffer for the draw list</span>
+        ByteBuffer dlb = ByteBuffer.allocateDirect(
+        <span class="comment">// (# of coordinate values * 2 bytes per short)</span>
+                drawOrder.length * <span class="number">2</span>);
+        dlb.order(ByteOrder.nativeOrder());
+        drawListBuffer = dlb.asShortBuffer();
+        drawListBuffer.put(drawOrder);
+        drawListBuffer.position(<span class="number">0</span>);
+    }
+}
+</code></pre>
 
       
     </div>
@@ -226,6 +301,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/04/05/Rxjava(1)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          RxJava
+        
+      </div>
+    </a>
   
   
     <a href="/2016/03/03/AndroidOpenGL学习笔记/" id="article-nav-older" class="article-nav-link-wrap">

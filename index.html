@@ -72,7 +72,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
+						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
 					</div>
 				</section>
 				
@@ -177,6 +177,134 @@
 
       <div class="body-wrap">
   
+    <article id="post-Rxjava(1)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/05/Rxjava(1)/" class="article-date">
+  	<time datetime="2016-04-05T02:46:39.000Z" itemprop="datePublished">2016-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/05/Rxjava(1)/">RxJava</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Rxjava使用简介（一）"><a href="#Rxjava使用简介（一）" class="headerlink" title="Rxjava使用简介（一）"></a>Rxjava使用简介（一）</h3><p>Rxjava为响应式编程，与一般的命令式编程不同。<code>Rxjava</code>最核心的东西就是<code>Observables</code>(被观察者)以及<code>Subscribers</code>(观察者)。<code>Observables</code>发出的一系列的事件，观察者<code>Observables</code>负责处理这些事件，这里的事件可以是任何一种需要处理的东西（如触摸事件以及请求网络返回数据）  </p>
+<p>一个<code>Observables</code>可以发出零个或者多个事件，知道事件结束或者是出错，每发出一个事件，就将会调用它的<code>Subscriber</code>的<code>onNext()</code>方法，最后调用<code>Subscriber.onNext()</code>或者是<code>Subscriber.onError()</code>结束  </p>
+<p>Rxjava的看起来很想设计模式中的观察者模式，但是有一点明显不同，那就是如果一个Observerble没有任何的的Subscriber，那么这个Observable是不会发出任何事件的。  </p>
+<p>创建一个基本的<code>Observables</code>对象很简单，直接调用<code>Observable.create()</code>即可。    </p>
+<pre><code class="java">Observable&lt;String&gt; myObservable = Observable.create(  
+    <span class="keyword">new</span> Observable.OnSubscribe&lt;String&gt;() {  
+        <span class="meta">@Override</span>  
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> String&gt; sub)</span> </span>{  
+            sub.onNext(<span class="string">"Hello, world!"</span>);  
+            sub.onCompleted();  
+        }  
+    }  
+);
+</code></pre>
+<p>这里定义的被观察者对象仅仅只是发出了一个<code>Hello World</code>字符串，然后就结束了，接着我们需要创建一个观察者对象来接受被观察者发出的字符串。  </p>
+<pre><code class="java">Subscriber&lt;String&gt; mySubscriber = <span class="keyword">new</span> Subscriber&lt;String&gt;() {  
+    <span class="meta">@Override</span>  
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>{ System.out.println(s); }  
+
+    <span class="meta">@Override</span>  
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>{ }  
+
+    <span class="meta">@Override</span>  
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>{ }  
+};
+</code></pre>
+<p>然后需要将观察者以及被观察者对象都绑定起来    </p>
+<pre><code class="java">myObservable.subscribe(mySubscriber);
+</code></pre>
+<p>在使用的过程中也可以使用更简洁的代码来时间被观察者对象的创建过程。RxJava内置了很多的简化<code>Observable</code>对象的函数，比如<code>Observable.just()</code>就是用来创建只发出一个事件就结束的<code>Observable</code>对象，上面创建<code>Observable</code>对象的代码就可以简化为一行。  </p>
+<pre><code class="java">Observable&lt;String&gt; myObservable = Observable.just(<span class="string">"Hello, world!"</span>);
+</code></pre>
+<p>如果在上面的例子中，我们不关心<code>onComplete()</code>以及<code>onError()</code>我们只需要在<code>onNext()</code>中做出一些处理，这时候就可以使用<code>Action1</code>类  </p>
+<pre><code class="java">Action1&lt;String&gt; onNextAction = <span class="keyword">new</span> Action1&lt;String&gt;() {  
+    <span class="meta">@Override</span>  
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(String s)</span> </span>{  
+        System.out.println(s);  
+    }  
+};
+</code></pre>
+<p><code>subscribe</code>方法有三个重载版本，接受了三个<code>Action1</code>类型的参数，分别对应的是<code>onNext()</code>、<code>onComplete()</code>、<code>onError()</code>函数  </p>
+<pre><code class="java">myObservable.subscribe(onNextAction, onErrorAction, onCompleteAction);
+</code></pre>
+<p>如果不关心其他的参数，只需要第一个参数就可以了  </p>
+<pre><code class="java">myObservable.subscribe(onNextAction);
+</code></pre>
+<p>上面的代码则最终可以写成如下的样子：  </p>
+<pre><code class="java">Observable.just(<span class="string">"Hello, world!"</span>)  
+    .subscribe(<span class="keyword">new</span> Action1&lt;String&gt;() {  
+        <span class="meta">@Override</span>  
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(String s)</span> </span>{  
+              System.out.println(s);  
+        }  
+    });  
+
+使用Java的 Iambda 则可以简化代码如
+Observable.just(<span class="string">"Hello, world!"</span>).subscribe(s-&gt;System.out.println(s));
+</code></pre>
+<p>在Android开发的过程中可以使用<code>retrolambda</code>这个<code>gradle</code>插件，这样就可以在代码中使用<code>java8</code>的<code>Iambda</code>表达式了  </p>
+<p>在<code>Rxjava</code>中支持了操作符来对参数进行过滤。可以解决对<code>Observable</code>对象进行变换的问题，操作符用在<code>Observable</code>和最终的<code>Subscriber</code>之间修改<code>Observable</code>发出的事件。<code>Rxjava</code>提供了很多的操作符，如<code>map</code>操作符就是把一个事件转化为另一个事件的。    </p>
+<pre><code class="java">Observable.just(<span class="string">"Hello, world!"</span>)  
+  .map(<span class="keyword">new</span> Func1&lt;String, String&gt;() {  
+      <span class="meta">@Override</span>  
+      <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">(String s)</span> </span>{  
+          <span class="keyword">return</span> s + <span class="string">" -Dan"</span>;  
+      }  
+  })  
+  .subscribe(s -&gt; System.out.println(s));
+</code></pre>
+<p>转换为<code>Iambda</code>的书写方式之后，则代码简化为：  </p>
+<pre><code class="java">Observable.just(<span class="string">"Hello, world!"</span>).map(s-&gt;s + <span class="string">" -Dan"</span>).subscribe(s-&gt;System.print.out(s));
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-AndroidOpenGL学习笔记-定义图形" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -204,7 +332,76 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Defining-Shapes"><a href="#Defining-Shapes" class="headerlink" title="Defining Shapes"></a>Defining Shapes</h3><p><code>OpenGL-ES</code>允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在<code>AndroidOpenGl</code>中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到<code>ByteBuffer</code>中，这些将在<code>OpenGLEs</code>绘制的过程中用到。  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FloatBuffer vertexBuffer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// number of coordinates per vertex in this array</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> triangleCoords[] = &#123;   <span class="comment">// in counterclockwise order:</span></span><br><span class="line">             <span class="number">0.0f</span>,  <span class="number">0.622008459f</span>, <span class="number">0.0f</span>, <span class="comment">// top</span></span><br><span class="line">            -<span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>, <span class="comment">// bottom left</span></span><br><span class="line">             <span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>  <span class="comment">// bottom right</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set color with red, green, blue and alpha (opacity) values</span></span><br><span class="line">    <span class="keyword">float</span> color[] = &#123; <span class="number">0.63671875f</span>, <span class="number">0.76953125f</span>, <span class="number">0.22265625f</span>, <span class="number">1.0f</span> &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Triangle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// initialize vertex byte buffer for shape coordinates</span></span><br><span class="line">        ByteBuffer bb = ByteBuffer.allocateDirect(</span><br><span class="line">                <span class="comment">// (number of coordinate values * 4 bytes per float)</span></span><br><span class="line">                triangleCoords.length * <span class="number">4</span>);</span><br><span class="line">        <span class="comment">// use the device hardware's native byte order</span></span><br><span class="line">        bb.order(ByteOrder.nativeOrder());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// create a floating point buffer from the ByteBuffer</span></span><br><span class="line">        vertexBuffer = bb.asFloatBuffer();</span><br><span class="line">        <span class="comment">// add the coordinates to the FloatBuffer</span></span><br><span class="line">        vertexBuffer.put(triangleCoords);</span><br><span class="line">        <span class="comment">// set the buffer to read the first coordinate</span></span><br><span class="line">        vertexBuffer.position(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">在`OpenGL`绘制的坐标系中，用`[<span class="number">0.0</span>.0](x,y,z)`来制定容器绘制帧布局的中心位置，`[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>]`代表帧布局最右边上角位置，`[-<span class="number">1</span>,-<span class="number">1</span>,<span class="number">0</span>]`代表了帧布局左下角容器位置。详细说明可以参见[OpenGl说明] [OpenGl]  </span><br><span class="line"></span><br><span class="line">定义一个复杂了图形，同样也是需要定义图形各个定点的坐标，并且需要提供绘制定点的顺序，如绘制一个矩形，最简单的绘制方式是利用以上的三角形代码来进行绘制，如以下的代码所示：  </span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> FloatBuffer vertexBuffer;</span><br><span class="line">    <span class="keyword">private</span> ShortBuffer drawListBuffer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// number of coordinates per vertex in this array</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">float</span> squareCoords[] = &#123;</span><br><span class="line">            -<span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// top left</span></span><br><span class="line">            -<span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom left</span></span><br><span class="line">             <span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom right</span></span><br><span class="line">             <span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span> &#125;; <span class="comment">// top right</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">short</span> drawOrder[] = &#123; <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span> &#125;; <span class="comment">// order to draw vertices</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Square</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// initialize vertex byte buffer for shape coordinates</span></span><br><span class="line">        ByteBuffer bb = ByteBuffer.allocateDirect(</span><br><span class="line">        <span class="comment">// (# of coordinate values * 4 bytes per float)</span></span><br><span class="line">                squareCoords.length * <span class="number">4</span>);</span><br><span class="line">        bb.order(ByteOrder.nativeOrder());</span><br><span class="line">        vertexBuffer = bb.asFloatBuffer();</span><br><span class="line">        vertexBuffer.put(squareCoords);</span><br><span class="line">        vertexBuffer.position(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// initialize byte buffer for the draw list</span></span><br><span class="line">        ByteBuffer dlb = ByteBuffer.allocateDirect(</span><br><span class="line">        <span class="comment">// (# of coordinate values * 2 bytes per short)</span></span><br><span class="line">                drawOrder.length * <span class="number">2</span>);</span><br><span class="line">        dlb.order(ByteOrder.nativeOrder());</span><br><span class="line">        drawListBuffer = dlb.asShortBuffer();</span><br><span class="line">        drawListBuffer.put(drawOrder);</span><br><span class="line">        drawListBuffer.position(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> </span>{
+
+    <span class="keyword">private</span> FloatBuffer vertexBuffer;
+
+    <span class="comment">// number of coordinates per vertex in this array</span>
+    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;
+    <span class="keyword">static</span> <span class="keyword">float</span> triangleCoords[] = {   <span class="comment">// in counterclockwise order:</span>
+             <span class="number">0.0f</span>,  <span class="number">0.622008459f</span>, <span class="number">0.0f</span>, <span class="comment">// top</span>
+            -<span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>, <span class="comment">// bottom left</span>
+             <span class="number">0.5f</span>, -<span class="number">0.311004243f</span>, <span class="number">0.0f</span>  <span class="comment">// bottom right</span>
+    };
+
+    <span class="comment">// Set color with red, green, blue and alpha (opacity) values</span>
+    <span class="keyword">float</span> color[] = { <span class="number">0.63671875f</span>, <span class="number">0.76953125f</span>, <span class="number">0.22265625f</span>, <span class="number">1.0f</span> };
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Triangle</span><span class="params">()</span> </span>{
+        <span class="comment">// initialize vertex byte buffer for shape coordinates</span>
+        ByteBuffer bb = ByteBuffer.allocateDirect(
+                <span class="comment">// (number of coordinate values * 4 bytes per float)</span>
+                triangleCoords.length * <span class="number">4</span>);
+        <span class="comment">// use the device hardware's native byte order</span>
+        bb.order(ByteOrder.nativeOrder());
+
+        <span class="comment">// create a floating point buffer from the ByteBuffer</span>
+        vertexBuffer = bb.asFloatBuffer();
+        <span class="comment">// add the coordinates to the FloatBuffer</span>
+        vertexBuffer.put(triangleCoords);
+        <span class="comment">// set the buffer to read the first coordinate</span>
+        vertexBuffer.position(<span class="number">0</span>);
+    }
+}
+</code></pre>
+<p>在<code>OpenGL</code>绘制的坐标系中，用<code>[0.0.0](x,y,z)</code>来制定容器绘制帧布局的中心位置，<code>[1,1,0]</code>代表帧布局最右边上角位置，<code>[-1,-1,0]</code>代表了帧布局左下角容器位置。详细说明可以参见<a href="(&quot;http://developer.android.com/guide/topics/graphics/opengl.html#faces-winding&quot;)">OpenGl说明</a>  </p>
+<p>定义一个复杂了图形，同样也是需要定义图形各个定点的坐标，并且需要提供绘制定点的顺序，如绘制一个矩形，最简单的绘制方式是利用以上的三角形代码来进行绘制，如以下的代码所示：  </p>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> </span>{
+
+    <span class="keyword">private</span> FloatBuffer vertexBuffer;
+    <span class="keyword">private</span> ShortBuffer drawListBuffer;
+
+    <span class="comment">// number of coordinates per vertex in this array</span>
+    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> COORDS_PER_VERTEX = <span class="number">3</span>;
+    <span class="keyword">static</span> <span class="keyword">float</span> squareCoords[] = {
+            -<span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// top left</span>
+            -<span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom left</span>
+             <span class="number">0.5f</span>, -<span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// bottom right</span>
+             <span class="number">0.5f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span> }; <span class="comment">// top right</span>
+
+    <span class="keyword">private</span> <span class="keyword">short</span> drawOrder[] = { <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span> }; <span class="comment">// order to draw vertices</span>
+
+    <span class="function"><span class="keyword">public</span> <span class="title">Square</span><span class="params">()</span> </span>{
+        <span class="comment">// initialize vertex byte buffer for shape coordinates</span>
+        ByteBuffer bb = ByteBuffer.allocateDirect(
+        <span class="comment">// (# of coordinate values * 4 bytes per float)</span>
+                squareCoords.length * <span class="number">4</span>);
+        bb.order(ByteOrder.nativeOrder());
+        vertexBuffer = bb.asFloatBuffer();
+        vertexBuffer.put(squareCoords);
+        vertexBuffer.position(<span class="number">0</span>);
+
+        <span class="comment">// initialize byte buffer for the draw list</span>
+        ByteBuffer dlb = ByteBuffer.allocateDirect(
+        <span class="comment">// (# of coordinate values * 2 bytes per short)</span>
+                drawOrder.length * <span class="number">2</span>);
+        dlb.order(ByteOrder.nativeOrder());
+        drawListBuffer = dlb.asShortBuffer();
+        drawListBuffer.put(drawOrder);
+        drawListBuffer.position(<span class="number">0</span>);
+    }
+}
+</code></pre>
 
       
     </div>
@@ -261,14 +458,51 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="使用OpenGl流程"><a href="#使用OpenGl流程" class="headerlink" title="使用OpenGl流程"></a>使用OpenGl流程</h3><p>首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-feature android:glEsVersion=<span class="string">"0x00020000"</span> android:required=<span class="string">"true"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果程序中还使用了<code>Texture compression</code>,同样的必须要声明所使用的<code>Text Compression</code>版本。确保能安装在正确的Android手机版本上<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_ETC1_RGB8_texture"</span> /&gt;</span><br><span class="line">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_paletted_texture"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="使用OpenGl流程"><a href="#使用OpenGl流程" class="headerlink" title="使用OpenGl流程"></a>使用OpenGl流程</h3><p>首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  </p>
+<pre><code class="java">&lt;uses-feature android:glEsVersion=<span class="string">"0x00020000"</span> android:required=<span class="string">"true"</span> /&gt;
+</code></pre>
+<p>如果程序中还使用了<code>Texture compression</code>,同样的必须要声明所使用的<code>Text Compression</code>版本。确保能安装在正确的Android手机版本上  </p>
+<pre><code class="java">&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_ETC1_RGB8_texture"</span> /&gt;
+&lt;supports-gl-texture android:name=<span class="string">"GL_OES_compressed_paletted_texture"</span> /&gt;
+</code></pre>
 <p>若程序中使用了OpenGl，必须在<code>GLSurfaceView</code>的基础上才能使用，下面的代码示例了如何在<code>Activity</code>中使用<code>OpenGl</code>  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OpenGLES20Activity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> GLSurfaceView mGLView;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// Create a GLSurfaceView instance and set it</span></span><br><span class="line">       <span class="comment">// as the ContentView for this Activity.</span></span><br><span class="line">       mGLView = <span class="keyword">new</span> MyGLSurfaceView(<span class="keyword">this</span>);</span><br><span class="line">       setContentView(mGLView);</span><br><span class="line">   	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OpenGLES20Activity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>{
+
+    <span class="keyword">private</span> GLSurfaceView mGLView;
+
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
+        <span class="keyword">super</span>.onCreate(savedInstanceState);
+
+        <span class="comment">// Create a GLSurfaceView instance and set it</span>
+        <span class="comment">// as the ContentView for this Activity.</span>
+        mGLView = <span class="keyword">new</span> MyGLSurfaceView(<span class="keyword">this</span>);
+        setContentView(mGLView);
+        }
+    }
+</code></pre>
 <p>创建一个<code>GLSurfaceView</code> 对象  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">MyGLSurfaceView</span> <span class="keyword">extends</span> <span class="title">GLSurfaceView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MyGLRenderer mRenderer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyGLSurfaceView</span><span class="params">(Context context)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(context);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create an OpenGL ES 2.0 context</span></span><br><span class="line">        setEGLContextClientVersion(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        mRenderer = <span class="keyword">new</span> MyGLRenderer();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set the Renderer for drawing on the GLSurfaceView</span></span><br><span class="line">        setRenderer(mRenderer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="class"><span class="keyword">class</span> <span class="title">MyGLSurfaceView</span> <span class="keyword">extends</span> <span class="title">GLSurfaceView</span> </span>{
+
+    <span class="keyword">private</span> <span class="keyword">final</span> MyGLRenderer mRenderer;
+
+    <span class="function"><span class="keyword">public</span> <span class="title">MyGLSurfaceView</span><span class="params">(Context context)</span></span>{
+        <span class="keyword">super</span>(context);
+
+        <span class="comment">// Create an OpenGL ES 2.0 context</span>
+        setEGLContextClientVersion(<span class="number">2</span>);
+
+        mRenderer = <span class="keyword">new</span> MyGLRenderer();
+
+        <span class="comment">// Set the Renderer for drawing on the GLSurfaceView</span>
+        setRenderer(mRenderer);
+    }
+}
+</code></pre>
 <p>此外还要设置渲染进程更新的机制  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Render the view only when there is a change in the drawing data</span></span><br><span class="line">setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="comment">// Render the view only when there is a change in the drawing data</span>
+setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+</code></pre>
 <p>创建一个<code>Renderer</code>类  </p>
 <p>实现了<code>GlSurfaceView.Renderer</code>接口，控制了如何绘制SurfacevView，其中必须实现三个方法  </p>
 <ul>
@@ -277,7 +511,24 @@
 <li><code>onSurfaceChanged()</code> - Called if the geometry of the view changes, for example when the device’s screen orientation changes.  </li>
 </ul>
 <p>下面为一个基本的<code>Renderer</code>代码示例  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGLRenderer</span> <span class="keyword">implements</span> <span class="title">GLSurfaceView</span>.<span class="title">Renderer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceCreated</span><span class="params">(GL10 unused, EGLConfig config)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Set the background frame color</span></span><br><span class="line">        GLES20.glClearColor(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDrawFrame</span><span class="params">(GL10 unused)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Redraw background color</span></span><br><span class="line">        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceChanged</span><span class="params">(GL10 unused, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        GLES20.glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyGLRenderer</span> <span class="keyword">implements</span> <span class="title">GLSurfaceView</span>.<span class="title">Renderer</span> </span>{
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceCreated</span><span class="params">(GL10 unused, EGLConfig config)</span> </span>{
+        <span class="comment">// Set the background frame color</span>
+        GLES20.glClearColor(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDrawFrame</span><span class="params">(GL10 unused)</span> </span>{
+        <span class="comment">// Redraw background color</span>
+        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSurfaceChanged</span><span class="params">(GL10 unused, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>{
+        GLES20.glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height);
+    }
+}
+</code></pre>
+
       
     </div>
     
