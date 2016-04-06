@@ -9,7 +9,7 @@ tags: AndroidOpenGl
 `OpenGL-ES`允许在三维坐标系里定义绘制图形，定义一个图形必须首先定义它的坐标，在`AndroidOpenGl`中需要定义顶点坐标数组信息，为了更加高效的使用定点坐标信息，需要将数据保存到`ByteBuffer`中，这些将在`OpenGLEs`绘制的过程中用到。  
 
 ```java 
-	public class Triangle {
+public class Triangle {
 
     private FloatBuffer vertexBuffer;
 
@@ -40,13 +40,13 @@ tags: AndroidOpenGl
         vertexBuffer.position(0);
     }
 }
-```  
+```   
 在`OpenGL`绘制的坐标系中，用`[0.0.0](x,y,z)`来制定容器绘制帧布局的中心位置，`[1,1,0]`代表帧布局最右边上角位置，`[-1,-1,0]`代表了帧布局左下角容器位置。详细说明可以参见[OpenGl说明] [OpenGl]  
 
 定义一个复杂了图形，同样也是需要定义图形各个定点的坐标，并且需要提供绘制定点的顺序，如绘制一个矩形，最简单的绘制方式是利用以上的三角形代码来进行绘制，如以下的代码所示：  
 
 ```java
-	public class Square {
+public class Square {
 
     private FloatBuffer vertexBuffer;
     private ShortBuffer drawListBuffer;
@@ -81,7 +81,7 @@ tags: AndroidOpenGl
         drawListBuffer.position(0);
     }
 }
-```
+```  
 
 
 

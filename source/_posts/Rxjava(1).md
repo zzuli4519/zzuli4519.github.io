@@ -95,7 +95,23 @@ Observable.just("Hello, world!").subscribe(s->System.out.println(s));
 
 在Android开发的过程中可以使用`retrolambda`这个`gradle`插件，这样就可以在代码中使用`java8`的`Iambda`表达式了  
 
-在`Rxjava`中支持了操作符来对参数进行过滤。可以解决对`Observable`对象进行变换的问题，操作符用在`Observable`和最终的`Subscriber`之间修改`Observable`发出的事件。`Rxjava`提供了很多的操作符，如`map`操作符就是把一个事件转化为另一个事件的。
+在`Rxjava`中支持了操作符来对参数进行过滤。可以解决对`Observable`对象进行变换的问题，操作符用在`Observable`和最终的`Subscriber`之间修改`Observable`发出的事件。`Rxjava`提供了很多的操作符，如`map`操作符就是把一个事件转化为另一个事件的。    
+
+```java
+Observable.just("Hello, world!")  
+  .map(new Func1<String, String>() {  
+      @Override  
+      public String call(String s) {  
+          return s + " -Dan";  
+      }  
+  })  
+  .subscribe(s -> System.out.println(s));  
+```   
+转换为`Iambda`的书写方式之后，则代码简化为：  
+
+```java
+Observable.just("Hello, world!").map(s->s + " -Dan").subscribe(s->System.print.out(s));
+```   
 
 
 

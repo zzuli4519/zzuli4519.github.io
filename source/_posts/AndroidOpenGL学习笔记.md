@@ -8,18 +8,17 @@ tags: AndroidOpenGl
 
 首先需要在配置文件中声明需要使用OpenGl的版本信息，如以下所示：  
 ```java
-		<uses-feature android:glEsVersion="0x00020000" android:required="true" />  
-```
+<uses-feature android:glEsVersion="0x00020000" android:required="true" />  
+```  
 如果程序中还使用了`Texture compression`,同样的必须要声明所使用的`Text Compression`版本。确保能安装在正确的Android手机版本上  
 ```java
-		<supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
-		<supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />   
-```
+<supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+<supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />   
+```  
 若程序中使用了OpenGl，必须在`GLSurfaceView`的基础上才能使用，下面的代码示例了如何在`Activity`中使用`OpenGl`  
 
 ```java  
-
-	public class OpenGLES20Activity extends Activity {
+public class OpenGLES20Activity extends Activity {
 
     private GLSurfaceView mGLView;
 
@@ -34,12 +33,12 @@ tags: AndroidOpenGl
     	}
 	}
 
-```
+```  
 
 创建一个`GLSurfaceView` 对象  
 
 ```java  
-	class MyGLSurfaceView extends GLSurfaceView {
+class MyGLSurfaceView extends GLSurfaceView {
 
     private final MyGLRenderer mRenderer;
 
@@ -54,14 +53,14 @@ tags: AndroidOpenGl
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
     }
-}
-```
+} 
+```  
 此外还要设置渲染进程更新的机制  
 
 ```java 
-	// Render the view only when there is a change in the drawing data
-	setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
-```
+// Render the view only when there is a change in the drawing data
+setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+```  
 
 创建一个`Renderer`类  
 
@@ -74,7 +73,7 @@ tags: AndroidOpenGl
 下面为一个基本的`Renderer`代码示例  
 
 ```java 
-	public class MyGLRenderer implements GLSurfaceView.Renderer {
+public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
@@ -90,4 +89,4 @@ tags: AndroidOpenGl
         GLES20.glViewport(0, 0, width, height);
     }
 }
-```
+```  
