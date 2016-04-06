@@ -107,7 +107,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/Rxjava/" style="font-size: 10px;">Rxjava</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/AndroidOpenGl/" style="font-size: 20px;">AndroidOpenGl</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rxjava/" style="font-size: 20px;">Rxjava</a> <a href="/tags/Volley/" style="font-size: 10px;">Volley</a> <a href="/tags/个人简介/" style="font-size: 10px;">个人简介</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,392 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Python知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/06/Python知识点/" class="article-date">
+  	<time datetime="2016-04-06T08:49:22.000Z" itemprop="datePublished">2016-04-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/06/Python知识点/">Python知识点</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###python学习</p>
+<p>获取指定的日期或者是时间代码：  </p>
+<pre><code>from datetime import datetime
+dt=datetime(2016,2,22,19,49)
+print(dt)
+//创建了一个当前时间，并且打印出来
+</code></pre><p>在计算机中时间一般都是以数字来进行表示的，相对时间就是以1970年的时间为一个界限，相当于timestamp。也可以认为是当前的时间减去1970年的时间<br>转换的代码如下所示：  </p>
+<pre><code>from datetime import datetime
+t=1429417200.0
+print(datetime.fromtimestamp(t))
+
+//timestamp实际上是一个浮点数，没有时区的概念，但是  
+//datetime是存在时区的概念的，上述转换为了本地的时间
+//但是如果在其他的时区将会产生错误的时间，所以有必要要  
+//进行时区转换的操作  
+</code></pre><p>时区转换  </p>
+<pre><code>//获取到utc 时间，并且将时间强制设定到utc+8:00
+utc_dt=datetime.utcnow().replace(tzinfo=timezone.utc)
+//转换为北京时区
+utc_dt.astimezone(timezone(timedelta(hours=8)))  
+转换时区的关键在于拿到一个`datetime`要获取其正确的时区，然后要强制设置时区，作为基准时间  
+利用带时区的时间，任何带时区的时间都是可以正确的转换
+</code></pre><p>使用集合collections  </p>
+<p>collection是Python内建的一个集合模块，提供了很多有用的集合类  </p>
+<blockquote>
+<p>namedtuple ,tuple表示的是一个内容不变的集合，一个二维的坐标点就可以表示为：<br>p=(1,2)<br>但是很难看出来这是表示的是一个坐标，但是定义个class同时也显得太小题大做了，所以这时候最简单的方式是使用namedtuple  </p>
+</blockquote>
+<pre><code>from collectionn import namedtuple
+Point=namedtuple(&apos;Point&apos;,[&apos;x&apos;,&apos;y&apos;])
+p=Point(1,2)
+//这种简单的写作方式可以明确的声明一个类似C++ Struct结构体  
+</code></pre><p>deque </p>
+<p>使用list 存储数据的时候，按照索引访问元素的速度较快，但是插入以及删除元素的速度就变得比较慢，因为list是线性存储，数据量大的时候，插入以及删除的效率就变得很低  </p>
+<p>deque是为了实现高效的实现插入以及删除操作的双向列表，适合用于队列以及堆栈</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Volley使用说明" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/06/Volley使用说明/" class="article-date">
+  	<time datetime="2016-04-06T08:39:37.000Z" itemprop="datePublished">2016-04-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/06/Volley使用说明/">Volley使用说明</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###1、使用Volley手册—多用组合，少用继承；针对接口编程，不针对具体实现编程。<br>1、基本的http通信是使用-即简单的<code>String</code>类型的Http请求按照如下的格式：  </p>
+<pre><code>requestQueue mRequestQueue=Volley.newRequestQueue(Context); 
+</code></pre><p>需要注意的地方在于：requestQueue为一个请求队列对象，可以缓存所有的Http请求，并且能按照一定算法并发的发出请求。本身的设计就是为适合高并发的操作，所以程序当中只需要建立一个RequestQueue的实例。  </p>
+<hr>
+<p>例如请求<code>String</code>类型的<code>get</code>请求数据如下所示：</p>
+<pre><code>StringRequest stringRequest = new StringRequest(&quot;http://www.baidu.com&quot;,  
+            new Response.Listener&lt;String&gt;() {  
+                @Override  
+                public void onResponse(String response) {  
+                    Log.d(&quot;TAG&quot;, response);  
+                }  
+            }, new Response.ErrorListener() {  
+                @Override  
+                public void onErrorResponse(VolleyError error) {  
+                    Log.e(&quot;TAG&quot;, error.getMessage(), error);  
+                }  
+            });  
+</code></pre><p>需要使用<code>post</code>请求则使用一下的请求方式来进行操作：  </p>
+<pre><code>StringRequest stringRequest = new StringRequest(Method.POST, url,  listener, errorListener); 
+</code></pre><p>需要注意的地方在于<code>StringRequest</code>中并没有提供设置<code>POST</code>参数的方法，但是当发出POST请求的时候，<code>Volley</code>会尝试调用<code>StringRequest</code>的父类——<code>Request</code>中的<code>getParams()</code>方法来获取POST参数，那么解决方法自然也就有了，我们只需要在StringRequest的匿名类中重写getParams()方法.  </p>
+<pre><code>    StringRequest stringRequest = new StringRequest(Method.POST, url,  listener, errorListener) {  
+     @Override  
+     protected Map&lt;String, String&gt; getParams() throws AuthFailureError {  
+        Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;();  
+        map.put(&quot;params1&quot;, &quot;value1&quot;);  
+        map.put(&quot;params2&quot;, &quot;value2&quot;);  
+        return map;  
+    }  
+};  
+</code></pre><p>对于Volley中支持的请求类型分为一下的几类：<br>1、ImageRequest<br>2、JsonArrayRequest<br>3、JsonObjectRequest<br>4、JsonRequest<br>5、StringRequest  </p>
+<p>###2.Volley中概念</p>
+<p>Volley 的调用比较简单，通过 <code>newRequestQueue(…)</code> 函数新建并启动一个请求队列RequestQueue后，只需要往这个RequestQueue不断 <code>add Request</code> 即可。</p>
+<p><strong>Volley</strong>：<code>Volley</code> 对外暴露的 API，通过 <code>newRequestQueue(…)</code> 函数新建并启动一个请求队列<code>RequestQueue</code>。</p>
+<p><strong>Request</strong>：表示一个请求的抽象类。<code>StringRequest</code>、<code>JsonRequest</code>、<code>ImageRequest</code> 都是它的子类，表示某种类型的请求。</p>
+<p><strong>RequestQueue</strong>：表示请求队列，里面包含一个<code>CacheDispatcher</code>用于处理走缓存请求的调度线程)、<code>NetworkDispatcher</code>数组(用于处理走网络请求的调度线程)，一个<code>ResponseDelivery</code>(返回结果分发接口)，通过 start() 函数启动时会启动<code>CacheDispatcher</code>和<code>NetworkDispatchers</code>。</p>
+<p><strong>CacheDispatcher</strong>：一个线程，用于调度处理走缓存的请求。启动后会不断从缓存请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给<code>ResponseDelivery</code>去执行后续处理。当结果未缓存过、缓存失效或缓存需要刷新的情况下，该请求都需要重新进入<code>NetworkDispatcher</code>去调度处理。</p>
+<p><strong>NetworkDispatcher</strong>：一个线程，用于调度处理走网络的请求。启动后会不断从网络请求队列中取请求处理，队列为空则等待，请求处理结束则将结果传递给<code>ResponseDelivery</code>去执行后续处理，并判断结果是否要进行缓存。</p>
+<p><strong>ResponseDelivery</strong>：返回结果分发接口，目前只有基于<code>ExecutorDelivery</code>的在入参 <code>handler</code> 对应线程内进行分发。</p>
+<p><strong>HttpStack</strong>：处理 <code>Http</code> 请求，返回请求结果。目前 Volley 中有基于 <code>HttpURLConnection</code> 的<code>HurlStack</code>和 基于 <code>Apache HttpClient</code> 的<code>HttpClientStack</code>。</p>
+<p><strong>Network</strong>：调用HttpStack处理请求，并将结果转换为可被<code>ResponseDelivery</code>处理的<code>NetworkResponse</code>。</p>
+<p><strong>Cache</strong>：缓存请求结果，Volley 默认使用的是基于 sdcard <code>的DiskBasedCache</code>。<code>NetworkDispatcher</code>得到请求结果后判断是否需要存储在 <code>Cache</code>，<code>CacheDispatcher会从</code> Cache 中取缓存结果。  </p>
+<hr>
+<ul>
+<li>所有的默认实现在<code>ToolBox</code>中体现。  </li>
+</ul>
+<p>###3、核心类的介绍</p>
+<ol>
+<li><p><strong>Volley使用</strong><br> <code>Volley</code> 主要有三个重载的静态的方法（其中前两个用的比较多）:</p>
+<pre><code>public static RequestQueue newRequestQueue(Context context)
+
+public static RequestQueue newRequestQueue(Context context, HttpStack stack)
+
+public static RequestQueue newRequestQueue(Context context, int maxDiskCacheBytes) 
+
+调用newRequestQueue()执行 newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes)构造器。具体实现如下：
+--------------------------------------------------------------------
+public static RequestQueue newRequestQueue(Context context, HttpStack stack, int maxDiskCacheBytes) {
+    //设置缓存的文件目录
+    File cacheDir = new File(context.getCacheDir(), &quot;volley&quot;);
+
+    String userAgent = &quot;volley/0&quot;;
+        try {
+        String packageName = context.getPackageName();
+        PackageInfo info = context.getPackageManager().getPackageInfo(packageName, 0);
+        userAgent = packageName + &quot;/&quot; + info.versionCode;
+    } catch (NameNotFoundException e) {
+
+      }
+    if (stack == null) {
+        if (Build.VERSION.SDK_INT &gt;= 9) {
+            //在Sdk版本2.1之后默认使用HttpUrlConnection中的HurlStack
+            stack = new HurlStack();
+        } else {
+            //2.1之前使用的Apach HttpClient作为默认实现
+            stack = new HttpClientStack(AndroidHttpClient.newInstance(userAgent));
+        }
+    }
+
+    Network network = new BasicNetwork(stack);
+    RequestQueue queue;
+    //创建缓存文件大小
+    if (maxDiskCacheBytes &lt;= -1){
+        queue = new RequestQueue(new DiskBasedCache(cacheDir), network);
+    } else{
+        queue = new RequestQueue(new DiskBasedCache(cacheDir, maxDiskCacheBytes), network);
+    }
+
+    queue.start();
+
+    return queue;
+}
+</code></pre></li>
+<li><p><strong>Request</strong><br> 代表网络请求抽象类,通过构建一个<code>Request</code>的非抽象子类(<code>StringRequest</code>、<code>JsonRequest</code>、<code>JsonRequest</code>或者自定义的对象)，并且将其加入到RequestQueue队列中来完成一次网络请求操作。  </p>
+<p> 子类必须要重写的抽象方法为： </p>
+<pre><code>&lt;!--子类重写此方法，将网络返回的原生字节内容，转换成合适的类型。此方法会在工作线程中被调用。--&gt;
+abstract protected Response&lt;T&gt; parseNetworkResponse(NetworkResponse response);
+
+&lt;!--子类重写此方法，将解析成合适类型的内容传递给它们的监听回调。--&gt;
+abstract protected void deliverResponse(T response);
+
+&lt;!--重写此方法，可以构建用于 POST、PUT、PATCH 请求方式的 Body 内容。--&gt;
+public byte[] getBody()
+
+&lt;!--getBody函数没有被重写情况下，此方法的返回值会被 key、value 分别编码后拼装起来转换为字节码作为 Body 内容。--&gt;
+protected Map&lt;String, String&gt; getParams()
+</code></pre></li>
+<li><p><strong>RequestQueue</strong><br> Volley 框架的核心类，将请求Request加入到一个运行的 <code>RequestQueue</code> 中，来完成请求操作。<br> 主要成员变量：  </p>
+<pre><code>&lt;!--当前执行请求的队列--&gt;
+private final Set&lt;Request&lt;?&gt;&gt; mCurrentRequests = new HashSet&lt;Request&lt;?&gt;&gt;();
+&lt;!--当前请求队列中存在相同的并且是能够缓存的请求Url。--&gt;
+private final Map&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt; mWaitingRequests = new HashMap&lt;String, Queue&lt;Request&lt;?&gt;&gt;&gt;();
+</code></pre><p> 调用<code>start()</code>方法开启缓存执行调度线程<code>CacheDispatcher</code>和<code>N</code>个网络调度线程<code>NetWorkDispatcher</code>，这里的n可以根据Cpu核心数以及计算机性能进行配置。</p>
+</li>
+<li><p><strong>CacheDispatcher</strong><br> 处理缓存的请求。启动之后不断的从后台取出缓存请求中取出请求处理。队列为空则执行等待。请求结束后将结果传递给<code>ResponseDelivery</code>执行后续的处理操作。<br> 如果结果未缓存过、缓存失效或者缓存需要刷新的情况下。该请求都是要重新进入到<code>NetWorkDispatcher</code>去调度处理。<br> 成员变量：<br> 1、<code>BlockingQueue&lt;Request&lt;?&gt;&gt; mCacheQueue</code> 缓存请求队列<br> 2、<code>BlockingQueue&lt;Request&lt;?&gt;&gt; mNetworkQueue</code> 网络请求队列<br> 3、<code>Cache mCache</code> 缓存类，代表了一个可以获取请求结果，存储请求结果的缓存<br> 4、<code>ResponseDelivery mDelivery</code> 请求结果传递类  </p>
+</li>
+</ol>
+<p>###4、关于Http缓存–304</p>
+<p>Volley 构建了一套相对完整的符合 Http 语义的缓存机制。<br>优点和特点<br>(1). 根据<code>Cache-Control</code>和<code>Expires</code>首部来计算缓存的过期时间。如果两个首部都存在情况下，以<code>Cache-Control</code>为准。<br>(2). 利用<code>If-None-Match</code>和<code>If-Modified-Since</code>对过期缓存或者不新鲜缓存，进行请求再验证，并处理 <code>304</code> 响应，更新缓存。<br>(3). 默认的缓存实现，将缓存以文件的形式存储在 Disk，程序退出后不会丢失。</p>
+<p>我个人认为的不足之处<br>缓存的再验证方面，在构建<code>If-Modified-Since</code>请求首部时，Volley 使用了服务端响应的Date首部，没有使用<code>Last-Modified</code>首部。整个框架没有使用<code>Last-Modified</code>首部。这与 Http 语义不符。</p>
+<pre><code>private void addCacheHeaders(Map&lt;String, String&gt; headers, Cache.Entry entry) {
+// If there&apos;s no cache entry, we&apos;re done.
+if (entry == null) {
+    return;
+}
+
+if (entry.etag != null) {
+    headers.put(&quot;If-None-Match&quot;, entry.etag);
+}
+
+if (entry.serverDate &gt; 0) {
+    Date refTime = new Date(entry.serverDate);
+    headers.put(&quot;If-Modified-Since&quot;, DateUtils.formatDate(refTime));
+    }
+}
+</code></pre><p>服务端根据请求时通过<code>If-Modified-Since</code>首部传过来的时间，判断资源文件是否在<code>If-Modified-Since</code>时间 以后 有改动，如果有改动，返回新的请求结果。如果没有改动，返回 <code>304 not modified</code>。<br><code>Last-Modified</code>代表了资源文件的最后修改时间。通常使用这个首部构建<code>If-Modified-Since</code>的时间。<br><code>Date</code>代表了响应产生的时间，正常情况下<code>Date</code>时间在<code>Last-Modified</code>时间之后。也就是<code>Date&gt;=Last-Modified</code>。<br>通过以上原理，既然<code>Date&gt;=Last-Modified</code>。那么我利用Date构建，也是完全正确的。</p>
+<p>可能的问题出在服务端的 Http 实现上，如果服务端完全遵守 Http 语义，采用时间比较的方式来验证<code>If-Modified-Since</code>，判断服务器资源文件修改时间是不是在<code>If-Modified-Since</code>之后。那么使用Date完全正确。<br>可是有的服务端实现不是比较时间，而是直接的判断服务器资源文件修改时间，是否和<code>If-Modified-Since</code>所传时间相等。这样使用Date就不能实现正确的再验证，因为Date的时间总不会和服务器资源文件修改时间相等。</p>
+<p>尽管使用Date可能出现的不正确情况，归结于服务端没有正确的实现 Http 语义。<br>但我还是希望Volley也能完全正确的实现Http语义，至少同时处理<code>Last-Modified</code>和<code>Date</code>,并且优先使用<code>Last-Modified</code>。</p>
+<p><strong>已知存在的Bug</strong></p>
+<p>(1). <code>BasicNetwork.performRequest(…)</code></p>
+<p>如下代码：</p>
+<pre><code>    @Override
+    public NetworkResponse performRequest(Request&lt;?&gt; request) throws VolleyError {
+    ……
+       while (true) {
+    ……
+    try {
+        ……
+     }catch (IOException e) {
+        int statusCode = 0;
+        NetworkResponse networkResponse = null;
+        ……
+        if (responseContents != null) {
+          ……
+        } else {
+            throw new NetworkError(networkResponse);
+        }
+        }
+    }
+}
+</code></pre><p><code>BasicNetwork.performRequest(…)</code> 最后的<code>throw new NetworkError(networkResponse);</code><br>应该是<br><code>throw new NetworkError(e);</code>更合理。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Volley/">Volley</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Rxjava-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/05/Rxjava-2/" class="article-date">
+  	<time datetime="2016-04-05T06:04:38.000Z" itemprop="datePublished">2016-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/05/Rxjava-2/">Rxjava(2)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###Rxjava响应式编程的好处  </p>
+<p>####错误处理  </p>
+<p><code>Rxjava</code>中的错误处理模式有以下的特点:  </p>
+<blockquote>
+<p>1、只要有异常发生onError()一定会被调用 ，这极大的简化了错误处理。只需要在一个地方处理错误即可以。<br>2、操作符不需要处理异常 ，将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。<br>3、你能够知道什么时候订阅者已经接收了全部的数据。知道什么时候任务结束能够帮助简化代码的流程。（虽然有可能Observable对象永远不会结束）</p>
+</blockquote>
+<p>这种错误处理方式比传统的错误处理要简单，传统的错误处理过程中，通常需要回调处理每一个错误，这不仅导致了需要处理重复的代码，并且意味着每个回调都需要知道如何处理错误，回调代码和调用者紧密的耦合在一起  </p>
+<p>在Rxjava中，<code>Observable</code>对象不需要知道如何处理错误，操作符也不需要处理错误状态，一旦发生了错误，就会跳过当前和后续的操作符，所有的错误处理都交给订阅者来做。  </p>
+<p>####调度器  </p>
+<p>编写多线程是Android中较为麻烦的事情，因为必须确保代码运行在正确的线程中，否则的话就能导致App崩溃，最常见的错误就是在Ui线程中访问了网络。  </p>
+<p>在Rxjava中，可以使用<code>subscribeOn</code>指定被观察者代码运行的线程，<code>observerOn()</code>可以指定订阅者运行的线程。  </p>
+<pre><code class="java">myObservableServices.retrieveImage(url)
+    .subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(bitmap -&gt; myImageView.setImageBitmap(bitmap));
+</code></pre>
+<p>任何在订阅者处理线程之前的嗲吗都是运行在I/O线程中，操作View的代码在主线程中运行。</p>
+<p>####订阅  </p>
+<p>当调用了<code>Observable.subscribe()</code>将会返回一个<code>subscribe</code>对象，这个对象将代表了被观察者和订阅者之间的联系  </p>
+<pre><code class="java">ubscription subscription = Observable.just(<span class="string">"Hello, World!"</span>)
+    .subscribe(s -&gt; System.out.println(s));
+
+<span class="comment">//中断执行订阅</span>
+</code></pre>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Rxjava(1)" class="article article-type-post" itemscope itemprop="blogPost">
   

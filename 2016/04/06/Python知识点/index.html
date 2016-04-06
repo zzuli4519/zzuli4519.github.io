@@ -4,21 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>序 | Ming</title>
+  <title>Python知识点 | Ming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
+  <meta name="description" content="###python学习
+获取指定的日期或者是时间代码：  
+from datetime import datetime
+dt=datetime(2016,2,22,19,49)
+print(dt)
+//创建了一个当前时间，并且打印出来
+在计算机中时间一般都是以数字来进行表示的，相对时间就是以1970年的时间为一个界限，相当于timestamp。也可以认为是当前的时间减去1970年的时间转换的代码如">
 <meta property="og:type" content="article">
-<meta property="og:title" content="序">
-<meta property="og:url" content="http://yoursite.com/2016/03/01/序/index.html">
+<meta property="og:title" content="Python知识点">
+<meta property="og:url" content="http://yoursite.com/2016/04/06/Python知识点/index.html">
 <meta property="og:site_name" content="Ming">
-<meta property="og:description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
-<meta property="og:updated_time" content="2016-03-01T06:13:48.316Z">
+<meta property="og:description" content="###python学习
+获取指定的日期或者是时间代码：  
+from datetime import datetime
+dt=datetime(2016,2,22,19,49)
+print(dt)
+//创建了一个当前时间，并且打印出来
+在计算机中时间一般都是以数字来进行表示的，相对时间就是以1970年的时间为一个界限，相当于timestamp。也可以认为是当前的时间减去1970年的时间转换的代码如">
+<meta property="og:updated_time" content="2016-04-06T08:49:57.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="序">
-<meta name="twitter:description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
+<meta name="twitter:title" content="Python知识点">
+<meta name="twitter:description" content="###python学习
+获取指定的日期或者是时间代码：  
+from datetime import datetime
+dt=datetime(2016,2,22,19,49)
+print(dt)
+//创建了一个当前时间，并且打印出来
+在计算机中时间一般都是以数字来进行表示的，相对时间就是以1970年的时间为一个界限，相当于timestamp。也可以认为是当前的时间减去1970年的时间转换的代码如">
   
     <link rel="alternative" href="/atom.xml" title="Ming" type="application/atom+xml">
   
@@ -175,11 +190,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-序" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Python知识点" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/01/序/" class="article-date">
-  	<time datetime="2016-03-01T06:12:43.000Z" itemprop="datePublished">2016-03-01</time>
+      <a href="/2016/04/06/Python知识点/" class="article-date">
+  	<time datetime="2016-04-06T08:49:22.000Z" itemprop="datePublished">2016-04-06</time>
 </a>
     </div>
   
@@ -192,7 +207,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      序
+      Python知识点
     </h1>
   
 
@@ -201,7 +216,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/个人简介/">个人简介</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 	</div>
 
         
@@ -212,8 +227,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  </p>
-<p>2016-03-01</p>
+        <p>###python学习</p>
+<p>获取指定的日期或者是时间代码：  </p>
+<pre><code>from datetime import datetime
+dt=datetime(2016,2,22,19,49)
+print(dt)
+//创建了一个当前时间，并且打印出来
+</code></pre><p>在计算机中时间一般都是以数字来进行表示的，相对时间就是以1970年的时间为一个界限，相当于timestamp。也可以认为是当前的时间减去1970年的时间<br>转换的代码如下所示：  </p>
+<pre><code>from datetime import datetime
+t=1429417200.0
+print(datetime.fromtimestamp(t))
+
+//timestamp实际上是一个浮点数，没有时区的概念，但是  
+//datetime是存在时区的概念的，上述转换为了本地的时间
+//但是如果在其他的时区将会产生错误的时间，所以有必要要  
+//进行时区转换的操作  
+</code></pre><p>时区转换  </p>
+<pre><code>//获取到utc 时间，并且将时间强制设定到utc+8:00
+utc_dt=datetime.utcnow().replace(tzinfo=timezone.utc)
+//转换为北京时区
+utc_dt.astimezone(timezone(timedelta(hours=8)))  
+转换时区的关键在于拿到一个`datetime`要获取其正确的时区，然后要强制设置时区，作为基准时间  
+利用带时区的时间，任何带时区的时间都是可以正确的转换
+</code></pre><p>使用集合collections  </p>
+<p>collection是Python内建的一个集合模块，提供了很多有用的集合类  </p>
+<blockquote>
+<p>namedtuple ,tuple表示的是一个内容不变的集合，一个二维的坐标点就可以表示为：<br>p=(1,2)<br>但是很难看出来这是表示的是一个坐标，但是定义个class同时也显得太小题大做了，所以这时候最简单的方式是使用namedtuple  </p>
+</blockquote>
+<pre><code>from collectionn import namedtuple
+Point=namedtuple(&apos;Point&apos;,[&apos;x&apos;,&apos;y&apos;])
+p=Point(1,2)
+//这种简单的写作方式可以明确的声明一个类似C++ Struct结构体  
+</code></pre><p>deque </p>
+<p>使用list 存储数据的时候，按照索引访问元素的速度较快，但是插入以及删除元素的速度就变得比较慢，因为list是线性存储，数据量大的时候，插入以及删除的效率就变得很低  </p>
+<p>deque是为了实现高效的实现插入以及删除操作的双向列表，适合用于队列以及堆栈</p>
 
       
     </div>
@@ -223,15 +270,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/03/AndroidOpenGL学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          AndroidOpenGL学习笔记
-        
-      </div>
-    </a>
   
+    <a href="/2016/04/06/Volley使用说明/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Volley使用说明</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -264,7 +307,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="序" data-title="序" data-url="http://yoursite.com/2016/03/01/序/"></div>
+	<div class="ds-thread" data-thread-key="Python知识点" data-title="Python知识点" data-url="http://yoursite.com/2016/04/06/Python知识点/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

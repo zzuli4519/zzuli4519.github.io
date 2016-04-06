@@ -4,21 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>序 | Ming</title>
+  <title>Rxjava(2) | Ming</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
+  <meta name="description" content="###Rxjava响应式编程的好处  
+####错误处理  
+Rxjava中的错误处理模式有以下的特点:  
+
+1、只要有异常发生onError()一定会被调用 ，这极大的简化了错误处理。只需要在一个地方处理错误即可以。2、操作符不需要处理异常 ，将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。3、你能够知道什么时候订阅者">
 <meta property="og:type" content="article">
-<meta property="og:title" content="序">
-<meta property="og:url" content="http://yoursite.com/2016/03/01/序/index.html">
+<meta property="og:title" content="Rxjava(2)">
+<meta property="og:url" content="http://yoursite.com/2016/04/05/Rxjava-2/index.html">
 <meta property="og:site_name" content="Ming">
-<meta property="og:description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
-<meta property="og:updated_time" content="2016-03-01T06:13:48.316Z">
+<meta property="og:description" content="###Rxjava响应式编程的好处  
+####错误处理  
+Rxjava中的错误处理模式有以下的特点:  
+
+1、只要有异常发生onError()一定会被调用 ，这极大的简化了错误处理。只需要在一个地方处理错误即可以。2、操作符不需要处理异常 ，将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。3、你能够知道什么时候订阅者">
+<meta property="og:updated_time" content="2016-04-05T09:30:15.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="序">
-<meta name="twitter:description" content="千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  
-2016-03-01">
+<meta name="twitter:title" content="Rxjava(2)">
+<meta name="twitter:description" content="###Rxjava响应式编程的好处  
+####错误处理  
+Rxjava中的错误处理模式有以下的特点:  
+
+1、只要有异常发生onError()一定会被调用 ，这极大的简化了错误处理。只需要在一个地方处理错误即可以。2、操作符不需要处理异常 ，将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。3、你能够知道什么时候订阅者">
   
     <link rel="alternative" href="/atom.xml" title="Ming" type="application/atom+xml">
   
@@ -175,11 +184,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-序" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Rxjava-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/01/序/" class="article-date">
-  	<time datetime="2016-03-01T06:12:43.000Z" itemprop="datePublished">2016-03-01</time>
+      <a href="/2016/04/05/Rxjava-2/" class="article-date">
+  	<time datetime="2016-04-05T06:04:38.000Z" itemprop="datePublished">2016-04-05</time>
 </a>
     </div>
   
@@ -192,7 +201,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      序
+      Rxjava(2)
     </h1>
   
 
@@ -201,7 +210,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/个人简介/">个人简介</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rxjava/">Rxjava</a></li></ul>
 	</div>
 
         
@@ -212,8 +221,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>千万不要让你本来努力就能获得的东西因为懈怠而失去了机会  </p>
-<p>2016-03-01</p>
+        <p>###Rxjava响应式编程的好处  </p>
+<p>####错误处理  </p>
+<p><code>Rxjava</code>中的错误处理模式有以下的特点:  </p>
+<blockquote>
+<p>1、只要有异常发生onError()一定会被调用 ，这极大的简化了错误处理。只需要在一个地方处理错误即可以。<br>2、操作符不需要处理异常 ，将异常处理交给订阅者来做，Observerable的操作符调用链中一旦有一个抛出了异常，就会直接执行onError()方法。<br>3、你能够知道什么时候订阅者已经接收了全部的数据。知道什么时候任务结束能够帮助简化代码的流程。（虽然有可能Observable对象永远不会结束）</p>
+</blockquote>
+<p>这种错误处理方式比传统的错误处理要简单，传统的错误处理过程中，通常需要回调处理每一个错误，这不仅导致了需要处理重复的代码，并且意味着每个回调都需要知道如何处理错误，回调代码和调用者紧密的耦合在一起  </p>
+<p>在Rxjava中，<code>Observable</code>对象不需要知道如何处理错误，操作符也不需要处理错误状态，一旦发生了错误，就会跳过当前和后续的操作符，所有的错误处理都交给订阅者来做。  </p>
+<p>####调度器  </p>
+<p>编写多线程是Android中较为麻烦的事情，因为必须确保代码运行在正确的线程中，否则的话就能导致App崩溃，最常见的错误就是在Ui线程中访问了网络。  </p>
+<p>在Rxjava中，可以使用<code>subscribeOn</code>指定被观察者代码运行的线程，<code>observerOn()</code>可以指定订阅者运行的线程。  </p>
+<pre><code class="java">myObservableServices.retrieveImage(url)
+    .subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(bitmap -&gt; myImageView.setImageBitmap(bitmap));
+</code></pre>
+<p>任何在订阅者处理线程之前的嗲吗都是运行在I/O线程中，操作View的代码在主线程中运行。</p>
+<p>####订阅  </p>
+<p>当调用了<code>Observable.subscribe()</code>将会返回一个<code>subscribe</code>对象，这个对象将代表了被观察者和订阅者之间的联系  </p>
+<pre><code class="java">ubscription subscription = Observable.just(<span class="string">"Hello, World!"</span>)
+    .subscribe(s -&gt; System.out.println(s));
+
+<span class="comment">//中断执行订阅</span>
+</code></pre>
 
       
     </div>
@@ -223,15 +254,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/03/AndroidOpenGL学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/04/06/Volley使用说明/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          AndroidOpenGL学习笔记
+          Volley使用说明
         
       </div>
     </a>
   
+  
+    <a href="/2016/04/05/Rxjava(1)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RxJava</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -264,7 +300,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="序" data-title="序" data-url="http://yoursite.com/2016/03/01/序/"></div>
+	<div class="ds-thread" data-thread-key="Rxjava-2" data-title="Rxjava(2)" data-url="http://yoursite.com/2016/04/05/Rxjava-2/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
